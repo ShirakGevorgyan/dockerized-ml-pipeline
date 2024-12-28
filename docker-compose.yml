@@ -1,0 +1,45 @@
+version: '3.9'
+
+services:
+  jupyter:
+    build:
+      context: ./ml-app/Jupyter-notebook
+      dockerfile: Dockerfile
+    container_name: jupyter-container
+    depends_on:
+      - postgres
+    volumes:
+      - ./ml-app/Jupyter-notebook:/app
+    ports:
+      - "8888:8888"  # Jupyter Notebook's default port
+    environment:
+      POSTGRES_HOST: postgres
+      POSTGRES_PORT: 5432
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+    networks:
+      - app-network
+
+  postgres:
+    build:
+      context: ./postgres
+      dockerfile: Dockerfile
+    container_name: postgres-container
+    ports:
+      - "5432:5432"  # PostgreSQL's default port
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: ML_Owner
+      POSTGRES_PASSWORD: Shirak1999$
+      POSTGRES_DB: gene_data
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
+
+volumes:
+  postgres-data:

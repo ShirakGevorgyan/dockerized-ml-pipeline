@@ -1,0 +1,22 @@
+# Ignoring compiled Python files
+__pycache__/
+*.py[cod]
+
+# Ignoring Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+
+# Ignoring log and temp files
+*.log
+*.tmp
+*.swp
+
+# Ignoring data files in case they're large
+postgres/data/
+
+# Ignoring Docker-related cache
+*.tar
+.dockerignore
+
+# Ignoring system files
+.DS_Store
+
